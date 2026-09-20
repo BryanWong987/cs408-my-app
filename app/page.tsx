@@ -1,7 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
+import LikeButton from './like-button';
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+import { loadEnv } from "./env";
 
-export default function Home() {
+type HeaderProps = {
+  title?: string;
+};
+
+function Header({ title } : HeaderProps ) {
+  return <h1>{title ? title : 'Default title'}</h1>;
+}
+const projectRoot = path.dirname(fileURLToPath(import.meta.url));
+
+// Read .env before touching process.env anywhere else.
+loadEnv(path.join(projectRoot, ".env"));
+
+export default async function Home() {
+  const response = await fetch("/api/grades");
+  const grades = await response.json();
+
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
@@ -76,3 +95,18 @@ export default function Home() {
     </div>
   );
 }
+// export default function Home() {
+//   const names = ['Ada Lovelace', 'Grace Hopper', 'Margaret Hamilton'];
+ 
+//   return (
+//     <div>
+//       <Header title="Develop. Preview. Ship." />
+//       <ul>
+//         {names.map((name) => (
+//           <li key={name}>{name}</li>
+//         ))}
+//       </ul>
+//       <LikeButton />
+//     </div>
+//   );
+// }
