@@ -18,6 +18,7 @@ export default async function Home() {
     grade: enrollment.grades?.current_grade,
   }));
 
+  // Display courses and grades
   return (
     <main className="min-h-screen bg-gray-100 p-8">
       <div className="mx-auto max-w-4xl">
