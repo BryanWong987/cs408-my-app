@@ -12,7 +12,7 @@ import { readFileSync } from "node:fs";
  *
  * @param {string} path Path to the .env file.
  */
-export function loadEnv(path = ".env") {
+export function loadEnv(path: string = ".env") {
   let contents;
   try {
     contents = readFileSync(path, "utf8");
