@@ -1,4 +1,5 @@
-import { getCourses, getEnrollments, getAssignments} from "./lib/canvas";
+import { getCourses, getEnrollments } from "./lib/canvas";
+import Link from "next/link";
 
 export default async function Home() {
   const enrollments = await getEnrollments();
@@ -11,11 +12,11 @@ export default async function Home() {
 
   // Combine the enrollment/grade information with the course names
   const grades = enrollments.map((enrollment: any) => ({
-  courseId: enrollment.course_id,
-  course: courseMap.get(enrollment.course_id) ?? "Unknown Course",
-  score: enrollment.grades?.current_score,
-  grade: enrollment.grades?.current_grade,
-}));
+    courseId: enrollment.course_id,
+    course: courseMap.get(enrollment.course_id) ?? "Unknown Course",
+    score: enrollment.grades?.current_score,
+    grade: enrollment.grades?.current_grade,
+  }));
 
   return (
     <main className="min-h-screen bg-gray-100 p-8">
@@ -29,7 +30,7 @@ export default async function Home() {
             <thead className="bg-gray-800 text-white">
               <tr>
                 <th className="px-6 py-4 text-left text-sm font-semibold">
-                  Course
+                  Course (click to view assignments)
                 </th>
                 <th className="px-6 py-4 text-left text-sm font-semibold">
                   Grade
@@ -46,8 +47,13 @@ export default async function Home() {
                   key={grade.courseId}
                   className="transition-colors hover:bg-gray-50"
                 >
-                  <td className="px-6 py-4 font-medium text-gray-900">
-                    {grade.course}
+                  <td className="px-6 py-4 font-medium">
+                    <Link
+                      href={`/assignments/${grade.courseId}`}
+                      className="text-blue-600 hover:text-blue-800 hover:underline"
+                    >
+                      {grade.course}
+                    </Link>
                   </td>
 
                   <td className="px-6 py-4 text-gray-700">

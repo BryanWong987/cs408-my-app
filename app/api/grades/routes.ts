@@ -7,8 +7,6 @@ export async function GET() {
   const token = process.env.CANVAS_API_TOKEN!;
 
   const response = await fetch(
-    // `${canvasUrl}/api/v1/courses/:id/enrollments`,
-    // "https://boisestatecanvas.instructure.com/api/v1/courses",
     `${canvasUrl}/api/v1/users/self/enrollments?include[]=course`,
     {
       headers: {

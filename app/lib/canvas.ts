@@ -5,6 +5,7 @@ const headers = {
   Authorization: `Bearer ${token}`,
 };
 
+// Get all the courses the student is currently enrolled in (and grades)
 export async function getEnrollments() {
   return fetchAllPages(
     `${canvasUrl}/api/v1/users/self/enrollments`,
@@ -12,6 +13,8 @@ export async function getEnrollments() {
   );
 }
 
+// Get all the courses the student is currently enrolled in
+// Important for getting course name, which getEnrollments does not have (only the course id)
 export async function getCourses() {
   return fetchAllPages(
     `${canvasUrl}/api/v1/courses`,
@@ -24,6 +27,27 @@ export async function getAssignments(courseId: number) {
     `${canvasUrl}/api/v1/courses/${courseId}/assignments`,
     headers
   );
+}
+
+export async function getAssignment(courseId: number, assignmentId : number) {
+//   return fetchAllPages(
+//     `${canvasUrl}/api/v1/courses/${courseId}/assignments/${assignmentId}`,
+//     headers
+//   );
+    const response = await fetch(
+        `${canvasUrl}/api/v1/courses/${courseId}/assignments/${assignmentId}`,
+        {
+        headers,
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error(
+        `Failed to fetch assignment: ${response.status}`
+        );
+    }
+
+    return response.json();
 }
 
 async function fetchAllPages(
@@ -71,42 +95,3 @@ function getNextUrl(linkHeader: string | null): string | null {
 
   return match ? match[1] : null;
 }
-
-// export default async function Home() {
-//   const canvasUrl = process.env.CANVAS_BASE_URL;
-//   const token = process.env.CANVAS_API_TOKEN;
-
-//   const headers = {
-//     Authorization: `Bearer ${token}`,
-//   };
-
-//   // Get the user's enrollments and grades
-//   const enrollmentsResponse = await fetch(
-//     `${canvasUrl}/api/v1/users/self/enrollments`,
-//     {
-//       headers,
-//     }
-//   );
-
-//   if (!enrollmentsResponse.ok) {
-//     throw new Error("Failed to fetch enrollments from Canvas");
-//   }
-
-//   const enrollments = await enrollmentsResponse.json();
-
-//   // Get the courses
-//   const coursesResponse = await fetch(
-//     `${canvasUrl}/api/v1/courses`,
-//     {
-//       headers,
-//     }
-//   );
-
-//   if (!coursesResponse.ok) {
-//     throw new Error("Failed to fetch courses from Canvas");
-//   }
-
-//   const courses = await coursesResponse.json();
-
-
-// }
