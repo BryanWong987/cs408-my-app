@@ -103,6 +103,8 @@ GET requests for getting courses, enrollments, and assignments are paginated by 
 `fetchAllPages()` in [`app/lib/canvas.ts`](app/lib/canvas.ts) gets the data returned by the endpoint, and also
 gets the link header to retrieve the next set of data until there is no data left (i.e. there is no 'rel="next"').
 
+Pagination does not apply for the GET request for one assignment, and the POST request because you are only getting information about one assignment, or submitting information (which does not deal with getting data).
+
 
 ## Reflection
 This was a very fun lab! This was my first assignment where I basically vibe coded the whole application since I am allowed to use AI, which came with its pros and cons. I used ChatGPT, and I was shocked at how accurate and error-free the code was, while also clearly explaining to me important concepts like pagination, parsing JSON, and writing routes with the Next.js framework. 
