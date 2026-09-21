@@ -30,10 +30,6 @@ export async function getAssignments(courseId: number) {
 }
 
 export async function getAssignment(courseId: number, assignmentId : number) {
-//   return fetchAllPages(
-//     `${canvasUrl}/api/v1/courses/${courseId}/assignments/${assignmentId}`,
-//     headers
-//   );
     const response = await fetch(
         `${canvasUrl}/api/v1/courses/${courseId}/assignments/${assignmentId}`,
         {

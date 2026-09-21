@@ -36,9 +36,6 @@ export default async function AssignmentsPage({
                   Submitted?
                 </th>
                 <th className="px-6 py-4 text-left text-sm font-semibold">
-                  Score
-                </th>
-                <th className="px-6 py-4 text-left text-sm font-semibold">
                   Submit (text or URL submission only)
                 </th>
               </tr>
@@ -64,10 +61,6 @@ export default async function AssignmentsPage({
                     {assignment.points_possible ?? "N/A"}
                   </td>
                   
-                  <td className="px-6 py-4 text-gray-700">
-                    {assignment.has_submitted_submissions ? "Yes" : "No"}
-                  </td>
-
                   <td className="px-6 py-4 text-gray-700">
                     {assignment.has_submitted_submissions ? "Yes" : "No"}
                   </td>
